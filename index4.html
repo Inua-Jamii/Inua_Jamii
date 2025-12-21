@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MainActivity4 - Malipo na Ofa</title>
+<title>Payment And Offer</title>
 <style>
   body {
     margin: 0;
@@ -171,8 +171,8 @@ document.head.appendChild(styleSheet);
 const copyAlert = document.getElementById('copyAlert');
 
 document.getElementById('copyButton').addEventListener('click', () => {
-  // Remove the semicolon and any spaces
-  const numberToCopy = instructionText2.split(':')[1].trim().replace(/;$/, '');
+  // Extract the last part after the colon to get the number
+  const numberToCopy = instructionText2.split(':').pop().trim();
   navigator.clipboard.writeText(numberToCopy).then(() => {
     // Show alert above the button
     const rect = document.getElementById('copyButton').getBoundingClientRect();
