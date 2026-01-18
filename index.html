@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>INUA JAMII FOUNDATION</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Alert message in center -->
+  <div id="alertMessage" style="
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ff4d4d; /* red background */
+    color: white; /* text color */
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    z-index: 10000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  "></div>
+
   <div class="header-image">
     <img src="images.jpeg" alt="INUA JAMII FOUNDATION" />
   </div>
@@ -21,9 +37,20 @@
   </div>
 
 <script>
-function nextPage(){ window.location.href='register.html'; }
-function notReady(){ alert("Please come back when you are ready."); }
+function nextPage() { window.location.href='register.html'; }
+
+function showAlert(message) {
+  const alertDiv = document.getElementById("alertMessage");
+  alertDiv.innerText = message;
+  alertDiv.style.display = "block";
+  setTimeout(() => {
+    alertDiv.style.display = "none";
+  }, 2000);
+}
+
+function notReady() {
+  showAlert("Please come back when you are ready.");
+}
 </script>
 </body>
 </html>
-
