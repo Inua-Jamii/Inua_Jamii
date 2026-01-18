@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>INUA JAMII – Amount Selection</title>
-
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script src="firebase-config.js"></script>
-
-  </head>
+</head>
 <body>
 
 <div class="container">
+
+  <!-- Alert message in the center (red) -->
+  <div id="alertMessage" style="
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ff4d4d; /* red background */
+    color: white; /* text color */
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    z-index: 10000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  "></div>
 
   <p style="font-size:20px; font-weight:bold;">
     Congratulations 👏 <span id="username"></span>.
@@ -102,9 +116,19 @@ document.querySelectorAll(".fund-buttons button").forEach(btn => {
   });
 });
 
+// Function to show alert in the center in red
+function showAlert(message) {
+  const alertDiv = document.getElementById("alertMessage");
+  alertDiv.innerText = message;
+  alertDiv.style.display = "block";
+  setTimeout(() => {
+    alertDiv.style.display = "none";
+  }, 2000);
+}
+
 function continueToPayment() {
   if (!selectedFund) {
-    alert("Please select an amount first.");
+    showAlert("Please select an amount first.");
     return;
   }
 
