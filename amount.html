@@ -132,10 +132,13 @@ function continueToPayment() {
     return;
   }
 
+  // Save selected fund to Firestore
   db.collection("users").doc(userPhone).update({
     selectedFund: selectedFund
   }).then(() => {
-    window.location.href = "payment1.html";
+    // Pass the fee as URL parameter 'fees2'
+    const fees2 = encodeURIComponent(selectedFund.fee);
+    window.location.href = "payment1.html?fees2=" + fees2;
   });
 }
 
@@ -157,35 +160,35 @@ const names = [
 
 const messages = [
   "Just received 50k from NYOTA FUND! Thank you 🙏",
-"Thought it was a scam but got my 25k. So happy!",
-"Received 40k. Real and trusted platform 🙌",
-"Funds came in less than 3 minutes. Amazing!",
-"I top up my business with NYOTA FUND. Thanks!",
-"Very quick and reliable. Got 30k.",
-"I started my small business using 50k. Thank you!",
-"Payment was smooth, received 26,500.",
-"NYOTA FUND is trustworthy. Got my 38k.",
-"Amazing service, 46,850 received.",
-"Quick approval and fast fund delivery.",
-"Thought it was fake but got my money.",
-"12,300 received successfully. Thank you NYOTA FUND!",
-"Funds delivered faster than expected.",
-"Real platform, got 50k in my phone.",
-"My business top-up went through smoothly.",
-"NYOTA FUND is the real deal. 79,700 received.",
-"Funds helped pay my rent. Thank you!",
-"Quick processing, I received 106,500.",
-"Very satisfied with NYOTA FUND.",
-"Received my 38,100 in minutes.",
-"Started business and got 26,500.",
-"Funds legit, fast, and reliable.",
-"Happy to receive 46,850, thanks!",
-"NYOTA FUND never disappoints.",
-"50k received in record time.",
-"Platform is trustworthy. Funds received.",
-"I paid the processing fee and got my 12,300 instantly.",
-"Real platform, very satisfied.",
-"Received 79,700, helped me start my project."
+  "Thought it was a scam but got my 25k. So happy!",
+  "Received 40k. Real and trusted platform 🙌",
+  "Funds came in less than 3 minutes. Amazing!",
+  "I top up my business with NYOTA FUND. Thanks!",
+  "Very quick and reliable. Got 30k.",
+  "I started my small business using 50k. Thank you!",
+  "Payment was smooth, received 26,500.",
+  "NYOTA FUND is trustworthy. Got my 38k.",
+  "Amazing service, 46,850 received.",
+  "Quick approval and fast fund delivery.",
+  "Thought it was fake but got my money.",
+  "12,300 received successfully. Thank you NYOTA FUND!",
+  "Funds delivered faster than expected.",
+  "Real platform, got 50k in my phone.",
+  "My business top-up went through smoothly.",
+  "NYOTA FUND is the real deal. 79,700 received.",
+  "Funds helped pay my rent. Thank you!",
+  "Quick processing, I received 106,500.",
+  "Very satisfied with NYOTA FUND.",
+  "Received my 38,100 in minutes.",
+  "Started business and got 26,500.",
+  "Funds legit, fast, and reliable.",
+  "Happy to receive 46,850, thanks!",
+  "NYOTA FUND never disappoints.",
+  "50k received in record time.",
+  "Platform is trustworthy. Funds received.",
+  "I paid the processing fee and got my 12,300 instantly.",
+  "Real platform, very satisfied.",
+  "Received 79,700, helped me start my project."
 ];
 
 function timeAgo() {
@@ -196,7 +199,7 @@ function timeAgo() {
   return times[Math.floor(Math.random() * times.length)];
 }
 
-// Shuffle
+// Shuffle function
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -205,6 +208,7 @@ function shuffle(arr) {
   return arr;
 }
 
+// Generate comments
 let comments = shuffle(names).map(name => ({
   name,
   text: messages[Math.floor(Math.random() * messages.length)],
@@ -221,7 +225,7 @@ comments.forEach(c => {
   commentsBox.appendChild(div);
 });
 
-// Auto scroll
+// Auto scroll comments
 let scrollPos = 0;
 setInterval(() => {
   scrollPos++;
