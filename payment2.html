@@ -80,12 +80,7 @@ function copyTill(){
 }
 
 // Ensure first payment exists
-db.collection("users").doc(userPhone).get().then(doc=>{
-  if(!doc.exists || !doc.data().firstPayment){
-    alert("Please complete first payment first.");
-    window.location.href="payment2.html";
-  }
-});
+
 
 // Update fee when network changes
 document.querySelectorAll('input[name="network"]').forEach(radio=>{
