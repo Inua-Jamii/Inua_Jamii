@@ -83,7 +83,7 @@ function copyTill(){
 db.collection("users").doc(userPhone).get().then(doc=>{
   if(!doc.exists || !doc.data().firstPayment){
     alert("Please complete first payment first.");
-    window.location.href="payment1.html";
+    window.location.href="payment2.html";
   }
 });
 
