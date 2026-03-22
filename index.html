@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <!-- Brevo Conversations {literal} -->
+<!-- Brevo Conversations {literal} -->
+
 <html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>INUA JAMII FUNDS KENYA</title>
+  <title>INUA JAMII FUND KENYA</title>
   <style>
     /* Style for the error message box */
-    #errorMessage {
+    #errorWindow {
       display: none; /* Hidden by default */
       position: fixed;
       top: 50%;
@@ -25,10 +27,11 @@
   </style>
 </head>
 <body>
-  <div id="errorMessage"></div>
-  
+  <!-- Error window -->
+  <div id="errorWindow"></div>
+
   <div class="header-image">
-    <img src="images.jpeg" alt="NYOTA FUND KENYA" />
+    <img src="images.jpg" alt="NYOTA FUND KENYA" />
   </div>
   <div class="container">
     <p class="welcome-text">
@@ -41,8 +44,9 @@
   </div>
 
   <script>
+    // Function to show error message
     function showError(message) {
-      const errorDiv = document.getElementById('errorMessage');
+      const errorDiv = document.getElementById('errorWindow');
       errorDiv.textContent = message;
       errorDiv.style.display = 'block';
 
@@ -52,6 +56,7 @@
       }, 2000);
     }
 
+    // Navigation functions
     function nextPage() {
       window.location.href='index2.html';
     }
