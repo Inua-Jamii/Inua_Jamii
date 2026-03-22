@@ -23,6 +23,66 @@
       font-size: 14px;
       z-index: 9999;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      max-width: 80%;
+      text-align: center;
+    }
+
+    /* Basic reset and responsive styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+      background-color: #fff;
+    }
+
+    .header-image img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .welcome-text {
+      font-size: 16px;
+      text-align: center;
+    }
+
+    /* Style the buttons container for vertical layout */
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* Style for buttons - blue and full width on small screens */
+    .buttons button {
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007BFF; /* Bootstrap blue */
+      color: white;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+
+    /* Hover effect for buttons */
+    .buttons button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
@@ -33,9 +93,10 @@
   <div class="header-image">
     <img src="images.jpg" alt="NYOTA FUND KENYA" />
   </div>
+
   <div class="container">
     <p class="welcome-text">
-      Hi👋,Welcome to INUA JAMII FUNDS KENYA. We are going to take you through some few questions before you receive your funds. <strong>Are you ready for that?</strong>
+      Hi👋, Welcome to INUA JAMII FUNDS KENYA. We are going to take you through some few questions before you receive your funds. <strong>Are you ready for that?</strong>
     </p>
     <div class="buttons">
       <button onclick="nextPage()">Yes</button>
