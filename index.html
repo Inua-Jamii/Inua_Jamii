@@ -1,34 +1,38 @@
 <!DOCTYPE html>
+<!-- Brevo Conversations {literal} -->
 <html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>INUA JAMII FOUNDATION</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>INUA JAMII FUNDS KENYA</title>
+  <style>
+    /* Style for the error message box */
+    #errorMessage {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      z-index: 9999;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+  </style>
 </head>
 <body>
-  <!-- Alert message in center -->
-  <div id="alertMessage" style="
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ff4d4d; /* red background */
-    color: white; /* text color */
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    z-index: 10000;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  "></div>
-
+  <div id="errorMessage"></div>
+  
   <div class="header-image">
-    <img src="images.jpg" alt="INUA JAMII FOUNDATION" />
+    <img src="images.jpeg" alt="NYOTA FUND KENYA" />
   </div>
   <div class="container">
     <p class="welcome-text">
-      Hi👋,Welcome to INUA JAMII FOUNDATION. We are going to take you through some few questions before you receive your funds. <strong>Are you ready for that?</strong>
+      Hi👋,Welcome to INUA JAMII FUNDS KENYA. We are going to take you through some few questions before you receive your funds. <strong>Are you ready for that?</strong>
     </p>
     <div class="buttons">
       <button onclick="nextPage()">Yes</button>
@@ -36,22 +40,25 @@
     </div>
   </div>
 
-<script>
-function nextPage() { window.location.href='index2.html'; }
+  <script>
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
 
-function showAlert(message) {
-  const alertDiv = document.getElementById("alertMessage");
-  alertDiv.innerText = message;
-  alertDiv.style.display = "block";
-  setTimeout(() => {
-    alertDiv.style.display = "none";
-  }, 2000);
-}
+      // Hide after 2 seconds
+      setTimeout(() => {
+        errorDiv.style.display = 'none';
+      }, 2000);
+    }
 
-function notReady() {
-  showAlert("Please come back when you are ready.");
-}
-</script>
+    function nextPage() {
+      window.location.href='index2.html';
+    }
+
+    function notReady() {
+      showError("Please come back when you are ready.");
+    }
+  </script>
 </body>
 </html>
-
